@@ -7,16 +7,15 @@
     (let ((def-value ""))
       (if (stringp quick-shell-command)
           (setq def-value quick-shell-command))
-      (setq quick-shell-command (read-string "Command: " def-value)))))
+      (setq quick-shell-command (read-string "Shell command: " def-value)))))
 
 (defun quick-shell-command (&optional prefix)
   "Run shell command"
   (interactive "P")
-  (cond ((or prefix
-             (not (stringp quick-shell-command))
-             (equal quick-shell-command ""))
-         (quick-shell-command-set)
-         ))
+  (when (or prefix
+            (not (stringp quick-shell-command))
+            (equal quick-shell-command ""))
+    (quick-shell-command-set))
 
   (save-buffer)
   (shell-command quick-shell-command))
